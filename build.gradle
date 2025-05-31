@@ -1,0 +1,41 @@
+import java.text.SimpleDateFormat
+
+plugins {
+    id 'java'
+    id 'idea'
+}
+
+project.name "FabricIntermediaryFetcher"
+project.group 'io.github.ecdcaeb'
+project.version "nil"
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+jar {
+
+    manifest.attributes(
+            'Manifest-Version': 1.0,
+            'Main-Class': 'io.github.ecdcaeb.fabricintermediaryfetcher.FabricIntermediaryFetcher',
+            "Implementation-Title": "${project.name}",
+            "Implementation-Version": "${project.version}",
+            "Implementation-Vendor": "${project.group}",
+            "Implementation-Timestamp": new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
+            "Premain-Class": "cn.enaium.joe.Agent",
+            "Agent-Class": "cn.enaium.joe.Agent",
+            "Can-Redefine-Classes": true,
+            "Can-Retransform-Classes": true
+    )
+}
+
+new File(System.getProperty("user.dir"), "run").mkdir()
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://maven.quiltmc.org/repository/release' }
+    maven { url 'https://maven.cleanroommc.com'}
+}
+
+dependencies {
+    implementation 'com.github.FabricMC:mapping-io:0.7.1'
+}
